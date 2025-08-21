@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Feedbacks - Dashboard</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div class="twinkle"></div>
+    <header class="header">
+      <h1>Coleta de Feedbacks</h1>
+      <p>Insira seu feedback. Para ver os resultados, faça login.</p>
+      <div class="actions">
+        <button id="btnLogin" class="btn-secondary">Login</button>
+        <button id="btnLogout" class="btn-secondary" style="display:none">Sair</button>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="panel">
+        <h2>Enviar Feedback</h2>
+        <form id="feedback-form" novalidate>
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="nameInput">Nome</label>
+              <input id="nameInput" name="name" type="text" placeholder="Seu nome" required />
+            </div>
+            <div class="form-field">
+              <label>Nota</label>
+              <div id="ratingStars" class="stars" role="radiogroup" aria-label="Avaliação por estrelas">
+                <input type="radio" id="star5" name="ratingStar" value="5" />
+                <label for="star5" title="5 estrelas">★</label>
+                <input type="radio" id="star4" name="ratingStar" value="4" />
+                <label for="star4" title="4 estrelas">★</label>
+                <input type="radio" id="star3" name="ratingStar" value="3" />
+                <label for="star3" title="3 estrelas">★</label>
+                <input type="radio" id="star2" name="ratingStar" value="2" />
+                <label for="star2" title="2 estrelas">★</label>
+                <input type="radio" id="star1" name="ratingStar" value="1" />
+                <label for="star1" title="1 estrela">★</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="commentInput">Comentário (opcional)</label>
+            <textarea id="commentInput" name="comment" rows="3" placeholder="Conte-nos mais..."></textarea>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">Enviar</button>
+            <span id="formError" class="form-error" role="alert" aria-live="polite"></span>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel" id="dashboardPanel" style="display:none">
+        <div class="panel-header">
+          <h2>Resumo</h2>
+          <div class="stats">
+            <div class="stat">
+              <span id="avgScore">0.0</span>
+              <small>Média</small>
+            </div>
+            <div class="stat">
+              <span id="totalFeedbacks">0</span>
+              <small>Feedbacks</small>
+            </div>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div>
+            <h3>Feedbacks Recentes</h3>
+            <ul id="feedbackList" class="feedback-list"></ul>
+          </div>
+          <div>
+            <h3>Distribuição de Notas</h3>
+            <div class="chart-box"><canvas id="ratingChart"></canvas></div>
+            <h3 style="margin-top:16px;">Distribuição (Pizza)</h3>
+            <div class="chart-box"><canvas id="ratingDonutChart"></canvas></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <small></small>
+    </footer>
+
+    <div id="loginModal" class="modal" style="display:none">
+      <div class="modal-backdrop"></div>
+      <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+        <div class="modal-header">
+          <h3 id="loginTitle">Acesso ao Dashboard</h3>
+          <button id="closeLoginModal" class="btn-icon" aria-label="Fechar">✕</button>
+        </div>
+        <form id="loginForm">
+          <p class="muted" style="margin-top:0">Digite a senha para ver os feedbacks e o gráfico.</p>
+          <div class="form-field">
+            <label for="loginPassword">Senha</label>
+            <input id="loginPassword" type="password" placeholder="Senha" required />
+            <small class="muted">Dica: use <strong>admin123</strong> (apenas demonstração)</small>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">Entrar</button>
+            <span id="loginError" class="form-error" role="alert" aria-live="polite"></span>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+  </html>
+
+
